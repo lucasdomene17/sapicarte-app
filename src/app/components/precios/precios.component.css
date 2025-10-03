@@ -64,6 +64,12 @@
     width: 22vw;
     display: none;
     }
+
+  .splash-precio4 {
+  top: 5vh;
+  right: 5vw;
+  width: 30vw;
+  }
   
   /* Animación de aparición */
   @keyframes splashIn {
@@ -83,6 +89,11 @@
   bottom: 3vh;
   right: 3vw;
   width: 28vw;
+  }
+  .splash-precio4 {
+  top: 3vh;
+  right: 3vw;
+  width: 26vw;
   }
   }
   
@@ -120,6 +131,9 @@
   .splash-precio2 {
   width: 60vw;
   opacity: 0.5;
+  }
+  .splash-precio4 {
+    display: none;
   }
   .splash-precio3 {
     bottom: 40vh;
