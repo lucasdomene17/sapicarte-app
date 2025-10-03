@@ -1,0 +1,57 @@
+<div class="p-6">
+  <h2 class="text-2xl font-bold mb-4 text-white">Administración de Turnos</h2>
+
+  <!-- Turnos pendientes -->
+  <div *ngIf="turnosEnCurso.length === 0" class="text-white mb-6">
+    No hay turnos pendientes de confirmación.
+  </div>
+
+  <div *ngFor="let turno of turnosEnCurso" class="bg-purple-800 p-4 mb-4 rounded text-white shadow">
+    <p><strong>Fecha:</strong> {{ turno.fecha | fechaBonita }}</p>
+    <p><strong>Hora:</strong> {{ turno.hora }}</p>
+    <p><strong>Personas:</strong> {{ turno.personas }}</p>
+
+    <div class="flex items-center gap-3 mt-2">
+      <button (click)="confirmarTurno(turno)"
+        class="bg-red-600 px-4 py-2 rounded text-black hover:bg-red-500 transition-colors">
+        Confirmar Turno
+      </button>
+
+      <div class="border-l border-gray-300 h-6"></div>
+
+      <button (click)="volverTurno(turno)"
+        class="bg-green-500 px-4 py-2 rounded text-black hover:bg-green-400 transition-colors">
+        Volver a Disponible
+      </button>
+    </div>
+  </div>
+
+  <!-- Turnos Confirmados -->
+  <h3 class="text-xl font-semibold mt-8 mb-4 text-yellow-300">Turnos Confirmados</h3>
+
+  <div
+    *ngIf="!turnosConfirmadosAgrupados['Hoy']?.length && !turnosConfirmadosAgrupados['Mañana']?.length && !turnosConfirmadosAgrupados['Próximos días']?.length"
+    class="text-white">
+    No hay turnos confirmados.
+  </div>
+
+  <div *ngFor="let categoria of ['Hoy', 'Mañana', 'Próximos días']">
+    <h4 *ngIf="turnosConfirmadosAgrupados[categoria]?.length">{{ categoria }}</h4>
+    <ul>
+      <li *ngFor="let turno of turnosConfirmadosAgrupados[categoria]">
+        {{ turno.fecha | fechaBonita }} - {{ turno.hora }}
+        ({{ turno.personas }} personas)
+      </li>
+    </ul>
+  </div>
+
+  <!-- Botón generar -->
+<div class="mt-10 p-4 bg-purple-900 rounded shadow text-center">
+  <button
+    class="flex items-center justify-center gap-2 bg-yellow-300 text-black px-6 py-3 rounded font-bold hover:bg-yellow-200 transition-colors mx-auto"
+    (click)="confirmarGeneracionTurnos()">
+    <span class="material-icons">event</span>
+    Generar turnos para los próximos 3 meses
+  </button>
+</div>
+</div>

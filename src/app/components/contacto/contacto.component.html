@@ -1,0 +1,41 @@
+<section class="relative py-20 px-6 bg-black text-white overflow-hidden">
+  <div class="contacto-texto max-w-4xl mx-auto relative z-10">
+    <h2 class="text-4xl font-bold mb-6 text-cyan-300 text-center drop-shadow-lg">Contacto</h2>
+
+    <p class="text-lg mb-6 text-center text-gray-200">¿Tenés preguntas, consultas o querés coordinar algo especial?</p>
+
+    <div class="space-y-6 text-center text-lg">
+      <p>📱 <strong>WhatsApp: </strong> 
+        <a [href]="'https://wa.me/' + whatsappNumber" 
+           class="text-green-400 font-semibold hover:text-green-300 transition">
+          {{ whatsappPretty }}
+        </a>
+      </p>
+
+      <p>📧 <strong>Email: </strong> 
+        <a href="mailto:salpicarteargentina&#64;gmail.com" 
+           class="text-pink-400 font-semibold hover:text-pink-300 transition">
+          salpicarteargentina&#64;gmail.com
+        </a>
+      </p>
+
+      <p>📍 <strong>Ubicación: </strong>
+        <a href="https://maps.app.goo.gl/VGSVeCcrxybCy1tH9" target="_blank" 
+           class="text-yellow-300 font-semibold hover:text-yellow-200 transition">
+          Héroes de Malvinas 240, San Luis
+        </a> 
+      </p>
+
+      <p>📸 También podés escribirnos por 
+        <a href="https://www.instagram.com/salpicarte.ar/" target="_blank" 
+           class="text-fuchsia-400 font-semibold hover:text-fuchsia-300 transition">
+          Instagram
+        </a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Ejemplo de manchas decorativas -->
+  <img src="assets/salpicaduras/mancha2.png" class="splash splash1" />
+  <img src="assets/salpicaduras/mancha5.png" class="splash splash2" />
+</section>

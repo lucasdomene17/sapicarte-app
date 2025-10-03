@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-950 text-white;
+  background: #000;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Efecto neón reutilizable */
+.neon {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+/* Colores flúor */
+.neon-cyan { color: #00ffff; }
+.neon-pink { color: #ff00ff; }
+.neon-yellow { color: #ffff00; }
+.neon-green { color: #39ff14; }
+.neon-orange { color: #ff4b2b; }
+
+/* Botones neón */
+.neon-btn {
+  background: transparent;
+  border: 2px solid currentColor;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.neon-btn:hover {
+  background: currentColor;
+  color: #000;
+  box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+/* 🔥 Animación de pulso */
+@keyframes pulse {
+  0% {
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+  }
+  100% {
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor;
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* === NAVBAR === */
+/* .navbar {
+  background: linear-gradient(90deg, #6a0dad, #8a2be2);
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.8rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #ffff00;
+} */
+
+/* === FOOTER === */
+.footer {
+  background: linear-gradient(180deg, #1a1a3d, #6a0dad);
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.footer a {
+  color: #ff00ff; /* Rosa flúor */
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* === SECCIONES GENERALES === */
+.section {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #FFD700;
+  text-shadow:
+    0 0 6px #FFD700,
+    0 0 12px #FFD700,
+    0 0 18px #FFD700,
+    2px 2px 4px rgba(0,0,0,0.8); /* Borde oscuro para contraste */
+}
+
+
+.card {
+  background: rgba(0,0,0,0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1rem auto;
+  max-width: 900px;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+/* Gradiente reutilizable */
+.gradient-bg {
+  background: linear-gradient(135deg, #ff00ff, #6a0dad, #00ffff);
+}
+
+.hover\:text-neon-yellow:hover { color: #faff00; text-shadow: 0 0 8px #faff00; }
+.hover\:text-neon-green:hover { color: #39ff14; text-shadow: 0 0 8px #39ff14; }
+

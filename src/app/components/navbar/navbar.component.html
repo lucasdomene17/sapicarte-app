@@ -1,0 +1,78 @@
+<nav class="relative bg-black text-white shadow-md z-50">
+  <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- Logo -->
+    <a class="logo" routerLink="/">
+      SalpicArte
+    </a>
+
+    <!-- Menú -->
+    <ul class="hidden md:flex space-x-4 text-sm md:text-base">
+      <li><a routerLink="/" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Inicio</a></li>
+      <li><a routerLink="/sobre" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Sobre</a></li>
+      <li><a routerLink="/galeria" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Galería</a></li>
+      <li><a routerLink="/precios" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Precios</a></li>
+      <li><a routerLink="/reservas" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Reservas</a></li>
+      <li><a routerLink="/contacto" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Contacto</a></li>
+      <li><a routerLink="/preguntas-frecuentes" routerLinkActive="text-yellow-300" class="hover:text-yellow-300 transition">Preguntas Frecuentes</a></li>
+    </ul>
+
+    <!-- Login / Logout -->
+<div class="hidden md:flex items-center space-x-2">
+  <ng-container *ngIf="user; else loggedOutDesktop">
+    <span class="text-white">Bienvenido, {{ user.displayName }}</span>
+    <button 
+      (click)="logout()" 
+      class="bg-red-500 hover:bg-red-600 px-3 py-2 rounded">
+      Cerrar sesión
+    </button>
+  </ng-container>
+  <ng-template #loggedOutDesktop>
+    <button 
+      (click)="goToLogin()" 
+      class="bg-green-500 hover:bg-green-600 px-3 py-2 rounded">
+      Iniciar sesión
+    </button>
+  </ng-template>
+</div>
+
+    <!-- Botón menú móvil -->
+    <button class="md:hidden z-[999]" (click)="toggleMenu()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+
+<!-- Menú móvil -->
+<div [class.hidden]="!menuOpen" class="md:hidden bg-black absolute top-full left-0 w-full shadow-lg z-[999] border-t border-fuchsia-500">
+  <ul class="flex flex-col text-center py-2">
+    <li><a (click)="toggleMenu()" routerLink="/" class="block py-2 hover:bg-fuchsia-700">Inicio</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/sobre" class="block py-2 hover:bg-fuchsia-700">Sobre</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/galeria" class="block py-2 hover:bg-fuchsia-700">Galería</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/precios" class="block py-2 hover:bg-fuchsia-700">Precios</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/reservas" class="block py-2 hover:bg-fuchsia-700">Reservas</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/contacto" class="block py-2 hover:bg-fuchsia-700">Contacto</a></li>
+    <li><a (click)="toggleMenu()" routerLink="/preguntas-frecuentes" class="block py-2 hover:bg-fuchsia-700">Preguntas Frecuentes</a></li>
+
+    <!-- Login / Logout móvil -->
+    <li class="border-t border-fuchsia-700 mt-2 pt-2">
+      <ng-container *ngIf="user; else loggedOutMobile">
+        <span class="block py-2 text-white">Bienvenido, {{ user.displayName }}</span>
+        <button 
+          (click)="logout(); toggleMenu()" 
+          class="w-full bg-red-500 hover:bg-red-600 px-3 py-2 rounded mt-1">
+          Cerrar sesión
+        </button>
+      </ng-container>
+      <ng-template #loggedOutMobile>
+        <button 
+          (click)="goToLogin(); toggleMenu()" 
+          class="w-full bg-green-500 hover:bg-green-600 px-3 py-2 rounded">
+          Iniciar sesión
+        </button>
+      </ng-template>
+    </li>
+  </ul>
+</div>
+
+</nav>

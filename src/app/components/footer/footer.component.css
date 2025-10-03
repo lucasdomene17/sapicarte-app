@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 2px solid #ff10f0; /* borde neón */
+}
+
+footer p {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+footer a.instagram {
+  color: #ff10f0;
+  text-shadow: 0 0 6px #ff10f0;
+}
+
+footer a.instagram:hover {
+  text-decoration: underline;
+}
+
+footer a.email {
+  color: #0ff;
+  text-shadow: 0 0 6px #0ff;
+}
+
+footer a.email:hover {
+  text-decoration: underline;
+}

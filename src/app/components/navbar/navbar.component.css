@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+/* Fondo y estructura */
+nav {
+  background: #000; /* negro */
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+/* Logo */
+nav a.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+nav a.logo:hover {
+  color: #faff00;
+  text-shadow: 0 0 8px #faff00;
+}
+
+/* Links */
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #39ff14; /* verde flúor */
+  text-shadow: 0 0 6px #39ff14;
+}
+
+/* Botón login/logout */
+nav button {
+  background: #faff00; /* amarillo neón */
+  color: #000; /* texto negro */
+  font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+nav button:hover {
+  background: #39ff14;
+  color: #000;
+  box-shadow: 0 0 10px #39ff14;
+}
+
+nav ul.mobile-menu {
+  position: absolute;
+  top: 100%; /* justo debajo del navbar */
+  left: 0;
+  width: 100%;
+  background: #000; /* fondo negro como el nav */
+  padding: 1rem 0;
+  z-index: 1000; /* asegurarse de que quede arriba del footer */
+}

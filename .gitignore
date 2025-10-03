@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Angular build outputs
+/dist/
+/.angular/
+/tmp/
+/out-tsc/
+
+# Environment files (if any sensitive overrides)
+/src/environments/environment.local.ts
+/src/environments/environment.*.local.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS & editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.iml
+
+# Coverage & reports
+/coverage/
+
+# Firebase
+.firebase/
+.firebaserc.local
+firebase-debug.log
+firebase-debug.*.log
+
+# Misc
+package-lock.json
+# Uncomment if you prefer to commit lockfile
+#!package-lock.json
+

@@ -1,0 +1,44 @@
+img {
+  border: 3px solid #fff;
+}
+
+video {
+  border: 3px solid #fff;
+  cursor: pointer;
+}
+
+.media-container {
+  position: relative;
+}
+
+/* Indicador visual para videos */
+.media-container video::before {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 2rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Estilos para mejorar la experiencia en dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  video {
+    cursor: default;
+  }
+}
+
+/* Efecto de hover para videos */
+video:hover {
+  box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+}
+
+/* Efecto de focus para accesibilidad */
+video:focus {
+  outline: 2px solid #00ffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 255, 255, 0.3);
+}

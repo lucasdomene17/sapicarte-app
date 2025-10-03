@@ -1,0 +1,57 @@
+<section class="reservas-section">
+  <div class="reservas-container">
+    <h2 class="reservas-title">Reservá tu Turno</h2>
+
+    <p class="reservas-subtitle">Seleccioná una fecha (mínimo 3 hs de anticipación):</p>
+    <input 
+      type="date" 
+      class="reservas-date-input"
+      [value]="formatearFecha(fechaSeleccionada)"
+      (change)="actualizarFecha($event.target.value!)" 
+    />
+
+    <!-- Spinner Neón -->
+    <div *ngIf="loadingTurnos" class="reservas-spinner">
+      <div class="spinner-outer"></div>
+      <div class="spinner-inner"></div>
+      <p class="spinner-text">Cargando turnos...</p>
+    </div>
+
+    <!-- Lista de turnos -->
+    <div class="turnos-container" *ngIf="!loadingTurnos">
+      <div *ngFor="let turno of getTurnosDelDia()" class="turno-card" [ngClass]="estadoClase(turno.estado)">
+        <h3 class="turno-title">Turno {{ turno.hora }} hs</h3>
+        <p class="turno-estado">
+          Estado: <strong>{{ turno.estado }}</strong>
+          <span *ngIf="turno.estado === 'Reserva en curso' && turno.timer"> - {{ turno.timerDisplay }}</span>
+        </p>
+
+        <!-- Contador regresivo -->
+        <div *ngIf="turno.estado === 'Reserva en curso'" class="turno-timer">
+          ⏳ Tiempo restante: {{ obtenerTiempoRestante(turno) }}
+        </div>
+
+        <!-- Selección de personas -->
+        <div *ngIf="turno.estado === 'Disponible'" class="turno-personas">
+          <label for="personas">Cantidad de personas (1-10): </label>
+          <input type="number" min="0" max="10" [(ngModel)]="turno.personas" />
+        </div>
+
+        <!-- Botón WhatsApp -->
+        <div class="turno-actions">
+          <a *ngIf="turno.estado === 'Disponible' && turno.personas >= 1 && turno.personas <= 10"
+            [href]="obtenerLinkWhatsapp(turno)" 
+            target="_blank"
+            class="btn-whatsapp"
+            (click)="reservarTurno(turno)">
+            Reservar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="reservas-info">
+      Recibirás los datos para realizar la seña del 10% al confirmar por WhatsApp.
+    </p>
+  </div>
+</section>

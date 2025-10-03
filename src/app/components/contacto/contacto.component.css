@@ -1,0 +1,66 @@
+section {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0a0a0a; /* negro absoluto */
+  position: relative;
+}
+
+.contacto-texto {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+
+h2 {
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+}
+
+a {
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.9;
+  text-shadow: 0 0 6px currentColor;
+}
+
+/* Manchas */
+.splash {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  animation: pulse 6s infinite alternate;
+}
+.splash1 { 
+  width: 30vw; 
+  opacity: 0.6;
+  top: 10vh;
+  left: 5vw;
+}
+.splash2 { 
+  width: 30vw; 
+  opacity: 0.6;
+  bottom: 10vh;
+  right: 5vw;
+}
+
+@keyframes pulse {
+  from { transform: scale(0.95); opacity: 0.5; }
+  to { transform: scale(1.05); opacity: 0.8; }
+}
+
+@media (max-width: 480px) {
+  .splash1 { 
+    width: 50vw; 
+    opacity: 0.6;
+    top: 5vh;
+    left: 5vw;
+  }
+  .splash2 { 
+    width: 50vw; 
+    opacity: 0.6;
+    bottom: 2vh;
+    right: 5vw;
+  }
+}

@@ -1,0 +1,54 @@
+.login-container {
+  text-align: center;
+  margin-top: 3rem;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.brand {
+  color: #ff00ff; /* magenta flúor */
+  text-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff;
+}
+
+.btn-google {
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  box-shadow: 0 0 10px #ff00ff, 0 0 10px #00ffff;
+}
+
+.btn-google:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff00ff, 0 0 20px #00ffff;
+}
+
+.btn-logout {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: #444;
+}
+
+.success {
+  color: #00ff99;
+  font-weight: bold;
+}
+
+.error {
+  color: #ff3333;
+  font-weight: bold;
+}

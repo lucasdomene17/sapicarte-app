@@ -1,0 +1,35 @@
+<section class="py-20 px-6 bg-black text-white">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-10 text-cyan-300">Galería de Momentos</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div *ngFor="let item of mediaItems" class="overflow-hidden rounded-xl shadow-lg media-container">
+        
+        <!-- Imagen -->
+        <img *ngIf="item.type === 'image'" 
+             [src]="item.src" 
+             [alt]="item.alt || 'Foto de SalpicArte'" 
+             class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+        
+        <!-- Video -->
+        <video *ngIf="item.type === 'video'"
+               #videoRef
+               [src]="item.src"
+               class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+               muted
+               loop
+               preload="metadata"
+               playsinline
+               tabindex="0"
+               [attr.aria-label]="item.alt || 'Video de SalpicArte'"
+               (mouseenter)="onVideoMouseEnter(videoRef)"
+               (mouseleave)="onVideoMouseLeave(videoRef)"
+               (focus)="onVideoFocus(videoRef)"
+               (blur)="onVideoBlur(videoRef)"
+               (touchstart)="onVideoTouchStart(videoRef)">
+          Tu navegador no soporta el elemento video.
+        </video>
+        
+      </div>
+    </div>
+  </div>
+</section>

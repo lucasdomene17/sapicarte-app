@@ -1,0 +1,225 @@
+/* Contenedor de todos los turnos */
+.turnos-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra horizontalmente las tarjetas */
+  gap: 1.5rem; /* espacio entre tarjetas */
+  margin-top: 2rem;
+}
+
+/* Cada tarjeta de turno */
+.turno-card {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 600px; /* límite de ancho en desktop */
+  width: 100%; /* ocupa todo el ancho posible hasta el max */
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.turno-card:hover {
+  transform: scale(1.02);
+}
+
+/* Input de cantidad */
+.turno-card input[type="number"] {
+  background: #111; 
+  color: white;
+  border: 2px solid #555;
+  border-radius: 0.4rem;
+  padding: 0.4rem;
+  width: 60px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.turno-card input[type="number"]:focus {
+  outline: none;
+  border-color: #ff00ff; /* violeta flúor */
+  box-shadow: 0 0 10px #ff00ff, 0 0 20px rgba(255, 0, 255, 0.7);
+}
+
+
+/* Fondo general */
+.reservas-section {
+  position: relative;
+  background-color: #0a0a0a;
+  color: white;
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  overflow: hidden;
+}
+
+/* Caja principal */
+.reservas-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Títulos */
+.reservas-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffea00;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px #ffea00, 0 0 15px #ff00ff;
+}
+
+.reservas-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Input fecha */
+.reservas-date-input {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+/* Spinner */
+.reservas-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.spinner-outer {
+  animation: spin 1s linear infinite;
+  border: 4px solid transparent;
+  border-top-color: #ff00ff;
+  border-bottom-color: #00ffff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 0 8px #ff00ff) drop-shadow(0 0 12px #00ffff);
+}
+.spinner-inner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  animation: ping 1s infinite;
+  filter: drop-shadow(0 0 6px #00ffff);
+}
+.spinner-text {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 6px #ff00ff, 0 0 10px #00ffff;
+}
+
+/* Caja turno */
+.turno-box {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.4);
+}
+.turno-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffea00;
+  margin-bottom: 0.5rem;
+}
+.turno-estado {
+  margin-bottom: 0.5rem;
+}
+.turno-timer {
+  display: inline-block;
+  background: #ffea00;
+  color: black;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+.turno-personas input {
+  background: white;
+  color: black;
+  padding: 0.3rem;
+  border-radius: 6px;
+  width: 60px;
+  text-align: center;
+}
+.turno-actions {
+  margin-top: 1rem;
+}
+.btn-whatsapp {
+  background-color: #25D366; /* verde WhatsApp */
+  color: black;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(37, 211, 102, 0.7);
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebe5d;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 1), 0 0 40px rgba(37, 211, 102, 0.8);
+  transform: scale(1.05);
+}
+
+/* Texto final */
+.reservas-info {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #00ffff;
+}
+
+/* Animaciones */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ping {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  75%, 100% { transform: scale(1.4); opacity: 0; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reservas-title { font-size: 2rem; }
+  .turno-box { padding: 1rem; }
+}
+@media (max-width: 480px) {
+  .reservas-title { font-size: 1.6rem; }
+  .reservas-subtitle { font-size: 1rem; }
+  .btn-whatsapp { width: 100%; display: block; margin-top: 0.5rem; }
+  .turno-card {
+    padding: 1rem;          /* menos padding */
+    font-size: 0.9rem;      /* texto más compacto */
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+  }
+
+  .turno-card h3 {
+    font-size: 1.2rem;      /* título más chico */
+    text-align: center;
+  }
+
+  .turno-card p {
+    font-size: 0.85rem;     /* párrafos más chicos */
+    text-align: center;
+  }
+
+  .turnos-container {
+    gap: 1rem;              /* menos espacio entre tarjetas */
+  }
+}

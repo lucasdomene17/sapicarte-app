@@ -1,0 +1,25 @@
+<div class="login-container">
+  <h2>Bienvenido a <span class="brand">SalpicArte</span></h2>
+
+  <div *ngIf="!user">
+    <button (click)="login()" class="btn-google">
+      🎨 Iniciar sesión con Google
+    </button>
+  </div>
+
+  <div *ngIf="user">
+    <p>Hola, <strong>{{ user.displayName }}</strong> 👋</p>
+
+    <div *ngIf="isAuthorized; else notAuthorized">
+      <p class="success">✅ Estás autorizado para administrar turnos.</p>
+    </div>
+
+    <ng-template #notAuthorized>
+      <p class="error">❌ Tu cuenta no está autorizada para administrar.</p>
+    </ng-template>
+
+    <button (click)="logout()" class="btn-logout">
+      Cerrar sesión
+    </button>
+  </div>
+</div>

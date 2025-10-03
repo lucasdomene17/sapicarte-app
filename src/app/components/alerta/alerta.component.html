@@ -1,0 +1,24 @@
+<div *ngIf="visible" class="alerta"   
+[ngClass]="{
+    'bg-neon-green': notificacion.tipo === 'exito',
+    'bg-neon-red': notificacion.tipo === 'error',
+    'bg-neon-blue': notificacion.tipo === 'info',
+    'bg-neon-orange': notificacion.tipo === 'confirmacion'
+  }">
+  <div class="contenido-alerta">
+    <span *ngIf="notificacion.tipo !== 'confirmacion'" class="material-icons icono-alerta">
+      <ng-container [ngSwitch]="notificacion.tipo">
+        <ng-container *ngSwitchCase="'exito'">check_circle</ng-container>
+        <ng-container *ngSwitchCase="'error'">error</ng-container>
+        <ng-container *ngSwitchCase="'info'">info</ng-container>
+      </ng-container>
+    </span>
+    <p>{{ notificacion?.mensaje }}</p>
+  </div>
+
+  <!-- Confirmación -->
+  <div *ngIf="notificacion?.tipo === 'confirmacion'" class="acciones">
+    <button (click)="aceptar()" class="bg-green-500 px-3 py-1 rounded">Aceptar</button>
+    <button (click)="cancelar()" class="bg-red-500 px-3 py-1 rounded">Cancelar</button>
+  </div>
+</div>
