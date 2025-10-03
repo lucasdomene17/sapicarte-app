@@ -1,0 +1,44 @@
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure hosting config exists
+        id: check_hosting
+        run: |
+          if grep -q hosting firebase.json; then
+            echo "hosting_config=true" >> $GITHUB_OUTPUT
+          else
+            echo "No se encontró configuración de hosting en firebase.json; se omitirá el deploy.";
+            echo "hosting_config=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js 18
+        if: steps.check_hosting.outputs.hosting_config == true
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Firebase CLI
+        if: steps.check_hosting.outputs.hosting_config == true
+        run: npm install -g firebase-tools
+
+      - name: Firebase Deploy
+        if: steps.check_hosting.outputs.hosting_config == true && env.FIREBASE_TOKEN != 
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only hosting --non-interactive
+
+      - name: Missing FIREBASE_TOKEN
+        if: steps.check_hosting.outputs.hosting_config == true && env.FIREBASE_TOKEN == 
+        run: |
+          echo "Falta el secreto FIREBASE_TOKEN en el repositorio. Añádelo en Settings > Secrets and variables > Actions."
+          exit 1
