@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TurnosService } from '../../services/turnos.service';
 import { NotificacionesService } from '../../services/notificaciones.service';
+import { LoggerService } from '../../services/logger.service';
 import { Turno, ESTADO_TURNO } from '../../models/turno.model';
 import { FechaBonitaPipe } from '../../shared/pipes/fecha-bonita.pipe';
 import { environment } from 'src/environments/environment';
@@ -24,11 +25,16 @@ export class ReservasComponent implements OnInit, AfterViewInit {
   public secondsLeft: { [key: string]: number } = {}; // segundos restantes por turno
 
 
-  constructor(private turnosService: TurnosService, private notificacionService: NotificacionesService, private fechaBonitaPipe: FechaBonitaPipe) { }
+  constructor(
+    private turnosService: TurnosService, 
+    private notificacionService: NotificacionesService, 
+    private fechaBonitaPipe: FechaBonitaPipe,
+    private logger: LoggerService
+  ) { }
 
   ngOnInit(): void {
     this.fechaSeleccionada = this.fechaInicial();//.toISOString().split('T')[0]; // hoy por defecto
-    console.log('Fecha inicial seleccionada:', this.fechaSeleccionada);
+    this.logger.log('Fecha inicial seleccionada:', this.fechaSeleccionada);
     this.cargarTurnos();
   }
 
@@ -43,7 +49,7 @@ export class ReservasComponent implements OnInit, AfterViewInit {
   // --- cargar turnos
   cargarTurnos(): void {
     this.loadingTurnos = true;
-    console.log('Cargando turnos para la fecha:', this.formatearFecha(this.fechaSeleccionada));
+    this.logger.log('Cargando turnos para la fecha:', this.formatearFecha(this.fechaSeleccionada));
     this.turnosService.getTurnosPorFecha(this.formatearFecha(this.fechaSeleccionada)).subscribe({
 
       next: (turnos) => {
@@ -55,9 +61,9 @@ export class ReservasComponent implements OnInit, AfterViewInit {
         for (const turno of this.turnos) {
           if (turno.estado === ESTADO_TURNO.ReservaEnCurso) {
             const inicioMs = this.timestampToMs((turno as any).timestamp);
-            console.log('inicioMs:', inicioMs);
+            this.logger.log('inicioMs:', inicioMs);
             if (!inicioMs) {
-              console.warn('Turno sin timestamp válido:', turno);
+              this.logger.warn('Turno sin timestamp válido:', turno);
               continue;
             }
 
@@ -75,11 +81,11 @@ export class ReservasComponent implements OnInit, AfterViewInit {
             }
           }
         }
-        console.log('Turnos cargados:', this.turnos);
+        this.logger.log('Turnos cargados:', this.turnos);
         this.loadingTurnos = false;
       },
       error: (err) => {
-        console.error('Error al cargar turnos:', err);
+        this.logger.error('Error al cargar turnos:', err);
         this.loadingTurnos = false;
         this.notificacionService.mostrar('Error al cargar los turnos', 'error');
       }
@@ -167,7 +173,7 @@ export class ReservasComponent implements OnInit, AfterViewInit {
   }
 
   formatearFecha(fecha: string): string {
-    console.log('Formateando fecha:', fecha);
+    this.logger.log('Formateando fecha:', fecha);
     //console.log('Fecha formateada:', fecha.toISOString().split('T')[0]);
     return fecha;//fecha.toISOString().split('T')[0];
   }
@@ -198,7 +204,7 @@ fechaInicial(): string {
 
   // --- convertidor robusto de timestamp a milisegundos
   private timestampToMs(turnoTimestamp: any): number | null {
-    console.log('timestampToMs input:', turnoTimestamp);
+    this.logger.log('timestampToMs input:', turnoTimestamp);
     if (!turnoTimestamp) return null;
 
     // Firestore Timestamp (tiene .seconds)

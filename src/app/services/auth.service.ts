@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Auth, GoogleAuthProvider, signInWithPopup, signOut, User, authState } from '@angular/fire/auth';
 import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { BehaviorSubject, filter, map, Observable, of, switchMap } from 'rxjs';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   private allowedEmailsSubject = new BehaviorSubject<string[] | null>(null);
   allowedEmails$ = this.allowedEmailsSubject.asObservable();
 
-  constructor(private auth: Auth, private firestore: Firestore) {
+  constructor(private auth: Auth, private firestore: Firestore, private logger: LoggerService) {
     // escuchar cambios de sesión
     this.user$ = authState(this.auth);
 
@@ -25,9 +26,9 @@ export class AuthService {
       const snap = await getDocs(collection(this.firestore, 'adminUsers'));
       const emails = snap.docs.map(doc => doc.data()['email'] as string);
       this.allowedEmailsSubject.next(emails);
-      console.log('✅ Emails de admins cargados:', emails);
+      this.logger.log('✅ Emails de admins cargados:', emails);
     } catch (error) {
-      console.error('Error al cargar adminUsers:', error);
+      this.logger.error('Error al cargar adminUsers:', error);
       this.allowedEmailsSubject.next([]);
     }
   }

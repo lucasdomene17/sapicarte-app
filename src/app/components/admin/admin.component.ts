@@ -3,6 +3,7 @@ import { TurnosService } from '../../services/turnos.service';
 import { Turno } from '../../models/turno.model';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,12 +15,12 @@ export class AdminComponent implements OnInit {
   turnosConfirmados: Turno[] = [];
   turnosConfirmadosAgrupados: { [categoria: string]: Turno[] } = {};
 
-  constructor(private turnosService: TurnosService, private notificacionService: NotificacionesService, private authService: AuthService) { }
+  constructor(private turnosService: TurnosService, private notificacionService: NotificacionesService, private authService: AuthService, private logger: LoggerService) { }
 
   ngOnInit(): void {
 
             this.authService.user$.subscribe(user => {
-      console.log("UID", user.uid);
+      this.logger.log("UID", user.uid);
     });
 
     this.turnosService.getTurnosEnCurso().subscribe(turnos => {

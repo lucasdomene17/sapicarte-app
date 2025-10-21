@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { LoggerService } from '../../services/logger.service';
 import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ export class LoginComponent {
   user: User | null = null;
   isAuthorized = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private logger: LoggerService) {
     this.authService.user$.subscribe(u => {
       this.user = u;
       this.authService.isAuthorized(u).subscribe(isAuth => {
@@ -24,7 +25,7 @@ export class LoginComponent {
 
   login() {
     this.authService.loginWithGoogle().catch(err => {
-      console.error('Error al iniciar sesión con Google:', err);
+      this.logger.error('Error al iniciar sesión con Google:', err);
     });
   }
 

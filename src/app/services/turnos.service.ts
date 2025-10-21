@@ -7,6 +7,7 @@ import { collectionData } from '@angular/fire/firestore';
 import { serverTimestamp } from 'firebase/firestore';
 import { map, switchMap } from 'rxjs/operators';
 import { Turno, ESTADO_TURNO } from '../models/turno.model';
+import { LoggerService } from './logger.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -14,7 +15,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TurnosService {
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore, private logger: LoggerService) { }
 
   // Obtener todos los turnos en estado "Reserva en curso"
   getTurnosEnCurso(): Observable<Turno[]> {
@@ -53,8 +54,8 @@ getTurnosConfirmados(): Observable<Turno[]> {
 
     const turnoRef = doc(this.firestore, `turnos/${turno.id}`);
     updateDoc(turnoRef, { estado: ESTADO_TURNO.Reservado })
-      .then(() => console.log('Turno confirmado'))
-      .catch(error => console.error('Error al confirmar turno:', error));
+      .then(() => this.logger.log('Turno confirmado'))
+      .catch(error => this.logger.error('Error al confirmar turno:', error));
   }
 
 
@@ -63,13 +64,13 @@ getTurnosConfirmados(): Observable<Turno[]> {
 
     const turnoRef = doc(this.firestore, `turnos/${turno.id}`);
     updateDoc(turnoRef, { estado: ESTADO_TURNO.Disponible, personas: 0 })
-      .then(() => console.log('Turno Disponible nuevamente'))
-      .catch(error => console.error('Error al volver turno:', error));
+      .then(() => this.logger.log('Turno Disponible nuevamente'))
+      .catch(error => this.logger.error('Error al volver turno:', error));
   }
 
 
   getTurnosPorFecha(fecha: string): Observable<Turno[]> {
-    console.log(`📅 Obteniendo turnos para la fecha: ${fecha}`);
+    this.logger.log(`📅 Obteniendo turnos para la fecha: ${fecha}`);
 
     // Documento fijo para obtener la hora del servidor
     const clockRef = doc(this.firestore, '_serverTime', 'clock');
@@ -80,19 +81,19 @@ getTurnosConfirmados(): Observable<Turno[]> {
       switchMap(() => getDoc(clockRef)), // leer la hora del servidor
       map(docSnap => {
         const serverDate = docSnap.data()?.now?.toDate() as Date;
-        console.log(`Hora del servidor: ${serverDate}`);
+        this.logger.log(`Hora del servidor: ${serverDate}`);
         return serverDate;
       }),
       switchMap(serverNow => {
         // Consulta de turnos
         const turnosRef = collection(this.firestore, 'turnos');
-        console.log(`Fecha solicitada: ${fecha}`);
+        this.logger.log(`Fecha solicitada: ${fecha}`);
         const q = query(
           turnosRef,
           where('fecha', '==', fecha),
           orderBy('hora')
         );
-        console.log(`Turnos encontrados para ${fecha}:`, q);
+        this.logger.log(`Turnos encontrados para ${fecha}:`, q);
         return collectionData(q, { idField: 'id' }).pipe(
           map((turnos: Turno[]) => {
             if (fecha === this.formatDate(serverNow)) {
@@ -132,14 +133,14 @@ getTurnosConfirmados(): Observable<Turno[]> {
             timestamp: serverTimestamp()
           });
         } else {
-          console.warn('No se encontró el turno para actualizar');
+          this.logger.warn('No se encontró el turno para actualizar');
         }
       })
       .then(() => {
-        console.log(`Turno ${turno.hora} del ${turno.fecha} actualizado correctamente.`);
+        this.logger.log(`Turno ${turno.hora} del ${turno.fecha} actualizado correctamente.`);
       })
       .catch((error) => {
-        console.error('Error al actualizar el turno:', error);
+        this.logger.error('Error al actualizar el turno:', error);
       });
   }
 
@@ -148,11 +149,11 @@ getTurnosConfirmados(): Observable<Turno[]> {
     const turnosRef = collection(this.firestore, 'turnos');
     return addDoc(turnosRef, turno)
       .then(docRef => {
-        console.log('Turno creado con ID:', docRef.id);
+        this.logger.log('Turno creado con ID:', docRef.id);
         return docRef;
       })
       .catch(error => {
-        console.error('Error al crear turno:', error);
+        this.logger.error('Error al crear turno:', error);
         throw error;
       });
   }
@@ -161,9 +162,9 @@ getTurnosConfirmados(): Observable<Turno[]> {
   eliminarTurno(id: string): Promise<void> {
     const turnoRef = doc(this.firestore, `turnos/${id}`);
     return deleteDoc(turnoRef)
-      .then(() => console.log(`Turno con ID ${id} eliminado`))
+      .then(() => this.logger.log(`Turno con ID ${id} eliminado`))
       .catch(error => {
-        console.error('Error al eliminar turno:', error);
+        this.logger.error('Error al eliminar turno:', error);
         throw error;
       });
   }
@@ -194,12 +195,12 @@ getTurnosConfirmados(): Observable<Turno[]> {
       }
     }
 
-    console.log('Turnos generados correctamente para este mes.');
+    this.logger.log('Turnos generados correctamente para este mes.');
   }
 
   // Generar turnos para los próximos 3 meses sin duplicados
   async generarTurnosProximosTresMeses() {
-    console.log('Generando turnos para los próximos 3 meses...');
+    this.logger.log('Generando turnos para los próximos 3 meses...');
     const hoy = new Date();
     const horarios = environment.horariosTurnos;
 
@@ -222,13 +223,13 @@ getTurnosConfirmados(): Observable<Turno[]> {
           );
           const existingSnap = await getDocs(existingQuery);
           if (!existingSnap.empty) {
-            console.log(`Ya existe un turno para ${fechaStr} a las ${hora}`);
+            this.logger.log(`Ya existe un turno para ${fechaStr} a las ${hora}`);
             continue;
           } else {
-            console.log(`No existe un turno para ${fechaStr} a las ${hora}`);
+            this.logger.log(`No existe un turno para ${fechaStr} a las ${hora}`);
           }
 
-          console.log(`Generando turno para ${fechaStr} a las ${hora}`);
+          this.logger.log(`Generando turno para ${fechaStr} a las ${hora}`);
           // Agregar nuevo turno
           await addDoc(turnosRef, {
             fecha: fechaStr,
@@ -237,24 +238,24 @@ getTurnosConfirmados(): Observable<Turno[]> {
             personas: 0,
             timestamp: Timestamp.fromDate(new Date(`${fechaStr}T${hora}:00`))
           });
-          console.log(`Turno generado: ${fechaStr} a las ${hora}`);
+          this.logger.log(`Turno generado: ${fechaStr} a las ${hora}`);
         }
       }
     }
 
-    console.log('✅ Turnos generados para los próximos 3 meses.');
+    this.logger.log('✅ Turnos generados para los próximos 3 meses.');
   }
 
 
   async getTurnos() {
-    console.log('Obteniendo turnos...');
+    this.logger.log('Obteniendo turnos...');
     try {
       const snapshot = await getDocs(collection(this.firestore, 'turnos'));
       snapshot.forEach(doc => {
-        console.log('🔍 Turno:', doc.id, doc.data());
+        this.logger.log('🔍 Turno:', doc.id, doc.data());
       });
     } catch (error) {
-      console.error('❌ Error al leer turnos:', error);
+      this.logger.error('❌ Error al leer turnos:', error);
     }
   }
 

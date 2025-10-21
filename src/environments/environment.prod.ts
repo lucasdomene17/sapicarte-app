@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  enableLogs: false, // Logs desactivados en producción
   firebaseConfig: {
     apiKey: "AIzaSyABttUnroWmA39n1buISOUvs-kheE18Qac",
     authDomain: "salpicarte-ar.firebaseapp.com",

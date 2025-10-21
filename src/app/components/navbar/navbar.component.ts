@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ export class NavbarComponent implements AfterViewInit {
   // Declara una propiedad para controlar la visibilidad del menú
   public menuOpen: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private logger: LoggerService) {
     this.authService.user$.subscribe(u => {
       this.user = u;
       this.authService.isAuthorized(u).subscribe(isAuth => {
@@ -34,7 +35,7 @@ export class NavbarComponent implements AfterViewInit {
 
 
   goToLogin() {
-    console.log("Redirigiendo al login...");
+    this.logger.log("Redirigiendo al login...");
     this.router.navigate(['/login']);
   }
 
