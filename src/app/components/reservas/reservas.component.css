@@ -14,9 +14,22 @@
   padding: 1.5rem;
   max-width: 600px; /* límite de ancho en desktop */
   width: 100%; /* ocupa todo el ancho posible hasta el max */
-  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  /*box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);*/ /* color por defecto */
   color: white;
   transition: transform 0.2s ease;
+}
+
+/* Estados de contorno para los turnos */
+.estado-disponible {
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); /* verde */
+}
+
+.estado-reserva-en-curso {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); /* amarillo */
+}
+
+.estado-reservado {
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); /* rojo */
 }
 
 .turno-card:hover {
@@ -206,7 +219,7 @@
   .turno-card {
     padding: 1rem;          /* menos padding */
     font-size: 0.9rem;      /* texto más compacto */
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+    /*box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);*/ /* color por defecto para responsive */
   }
 
   .turno-card h3 {
@@ -221,5 +234,18 @@
 
   .turnos-container {
     gap: 1rem;              /* menos espacio entre tarjetas */
+  }
+
+  /* Estados de contorno para responsive */
+  .estado-disponible {
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); /* verde */
+  }
+
+  .estado-reserva-en-curso {
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); /* amarillo */
+  }
+
+  .estado-reservado {
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); /* rojo */
   }
 }

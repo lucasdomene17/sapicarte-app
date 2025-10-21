@@ -100,11 +100,11 @@ export class ReservasComponent implements OnInit, AfterViewInit {
   estadoClase(estado: string): string {
     switch (estado) {
       case ESTADO_TURNO.Disponible:
-        return 'bg-green-600';
+        return 'estado-disponible';
       case ESTADO_TURNO.ReservaEnCurso:
-        return 'bg-yellow-500 text-black';
+        return 'estado-reserva-en-curso';
       case ESTADO_TURNO.Reservado:
-        return 'bg-red-600';
+        return 'estado-reservado';
       default:
         return '';
     }

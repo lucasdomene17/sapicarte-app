@@ -4,13 +4,13 @@
 <!--     <div *ngIf="showDebug" class="debug-info">
       Ancho: {{screenWidth}}px | Alto: {{screenHeight}}px
     </div> -->
-  <img src="assets/salpicaduras/mancha1.png" alt="mancha" class="splash splash1">
-  <img src="assets/salpicaduras/mancha2.png" alt="mancha" class="splash splash2">
-  <img src="assets/salpicaduras/mancha3.png" alt="mancha" class="splash splash3">
-  <img src="assets/salpicaduras/mancha4.png" alt="mancha" class="splash splash4">
-  <img src="assets/salpicaduras/mancha5.png" alt="mancha" class="splash splash5">
-  <img src="assets/salpicaduras/mancha6.png" alt="mancha" class="splash splash6">
-  <img src="assets/salpicaduras/mancha7.png" alt="mancha" class="splash splash7">
+  <img src="assets/salpicaduras/mancha1.png" alt="mancha" class="splash splash1" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha2.png" alt="mancha" class="splash splash2" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha3.png" alt="mancha" class="splash splash3" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha4.png" alt="mancha" class="splash splash4" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha5.png" alt="mancha" class="splash splash5" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha6.png" alt="mancha" class="splash splash6" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
+  <img src="assets/salpicaduras/mancha7.png" alt="mancha" class="splash splash7" (load)="onImageLoad()" [class.loaded]="allImagesLoaded">
 
   <h1>¡Bienvenidos a SalpicArte!</h1>
   <p>Donde el arte, los juegos y la diversión se combinan en una experiencia única bajo luces flúor 🌈</p>
