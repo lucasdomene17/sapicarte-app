@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggerService } from '../../services/logger.service';
 
 interface MediaItem {
   src: string;
@@ -12,6 +13,7 @@ interface MediaItem {
   styleUrls: ['./galeria.component.css']
 })
 export class GaleriaComponent {
+  constructor(private logger: LoggerService) {}
   mediaItems: MediaItem[] = [
     { src: 'assets/galeria/galeria1.jpg', type: 'image', alt: 'Foto de SalpicArte 1' },
     { src: 'assets/galeria/video1.mp4', type: 'video', alt: 'Video de SalpicArte 1' },
@@ -27,7 +29,7 @@ export class GaleriaComponent {
   onVideoMouseEnter(videoElement: HTMLVideoElement): void {
     videoElement.muted = true; // Necesario para autoplay en navegadores
     videoElement.play().catch(error => {
-      console.warn('Error al reproducir video:', error);
+      this.logger.warn('Error al reproducir video:', error);
     });
   }
 
@@ -39,7 +41,7 @@ export class GaleriaComponent {
   onVideoFocus(videoElement: HTMLVideoElement): void {
     videoElement.muted = true;
     videoElement.play().catch(error => {
-      console.warn('Error al reproducir video:', error);
+      this.logger.warn('Error al reproducir video:', error);
     });
   }
 
@@ -53,7 +55,7 @@ export class GaleriaComponent {
     if (videoElement.paused) {
       videoElement.muted = true;
       videoElement.play().catch(error => {
-        console.warn('Error al reproducir video:', error);
+        this.logger.warn('Error al reproducir video:', error);
       });
     } else {
       videoElement.pause();
