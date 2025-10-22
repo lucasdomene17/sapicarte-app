@@ -5,7 +5,7 @@ export const environment = {
     apiKey: "AIzaSyABttUnroWmA39n1buISOUvs-kheE18Qac",
     authDomain: "salpicarte-ar.firebaseapp.com",
     projectId: "salpicarte-ar",
-    storageBucket: "salpicarte-ar.firebasestorage.app",
+    storageBucket: "salpicarte-ar.appspot.com",
     messagingSenderId: "452145999045",
     appId: "1:452145999045:web:e258735bdaabfcc36f54ac",
     measurementId: "G-4PMJKKZEM3"
