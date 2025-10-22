@@ -16,6 +16,7 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => {
+    // Solo mostrar error en desarrollo
     if (environment.enableLogs) {
       console.error("Bootstrap error:", err);
     }
