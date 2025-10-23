@@ -32,7 +32,7 @@
         </div>
 
         <!-- Selección de personas -->
-        <div *ngIf="turno.estado === 'Disponible'" class="turno-personas">
+        <div *ngIf="turno.estado === 'Disponible'" class="turno-personas" [class.animate-heartbeat]="!loadingTurnos">
           <label for="personas">Cantidad de personas (1-10): </label>
           <input type="number" min="0" max="10" [(ngModel)]="turno.personas" />
         </div>

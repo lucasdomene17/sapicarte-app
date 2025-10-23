@@ -1,6 +1,6 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup, signOut, User, authState } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, User, authState } from '@angular/fire/auth';
 import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { BehaviorSubject, filter, map, Observable, of, switchMap } from 'rxjs';
 import { LoggerService } from './logger.service';
@@ -19,6 +19,9 @@ export class AuthService {
 
     // cargar lista de admins desde la colección
     this.loadAllowedEmails();
+
+    // manejar resultado de redirect en móviles
+    this.handleRedirectResult();
   }
 
   private async loadAllowedEmails() {
@@ -33,9 +36,32 @@ export class AuthService {
     }
   }
 
+  private isMobileDevice(): boolean {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  private async handleRedirectResult(): Promise<void> {
+    try {
+      const result = await getRedirectResult(this.auth);
+      if (result) {
+        this.logger.log('✅ Login exitoso via redirect');
+      }
+    } catch (error) {
+      this.logger.error('Error al manejar redirect result:', error);
+    }
+  }
+
   async loginWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider);
+    
+    // En dispositivos móviles usar redirect, en desktop usar popup
+    if (this.isMobileDevice()) {
+      this.logger.log('📱 Dispositivo móvil detectado, usando redirect');
+      await signInWithRedirect(this.auth, provider);
+    } else {
+      this.logger.log('🖥️ Dispositivo desktop detectado, usando popup');
+      await signInWithPopup(this.auth, provider);
+    }
   }
 
   async logout(): Promise<void> {

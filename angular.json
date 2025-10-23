@@ -38,7 +38,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -96,7 +95,6 @@
       }
     }
   },
-  "defaultProject": "salpicarte-app",
   "cli": {
     "analytics": "6f674c2d-3f45-4a0a-ba7f-c89a22448486"
   }

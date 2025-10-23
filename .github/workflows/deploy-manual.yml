@@ -1,0 +1,50 @@
+name: Manual Deploy to Firebase
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Firebase project ID"
+        required: false
+        default: "salpicarte-ar"
+      channel:
+        description: "Optional preview channel name (leave empty for production)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Build Angular
+        run: |
+          npm ci
+          npm run build --if-present -- --configuration production
+
+      - name: Deploy to Firebase (production)
+        if: inputs.channel == 
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          firebase deploy --only hosting --project "${{ inputs.project }}" --non-interactive
+
+      - name: Deploy to Firebase Preview Channel
+        if: inputs.channel != 
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          firebase hosting:channel:deploy "${{ inputs.channel }}" --project "${{ inputs.project }}" --expires 7d --non-interactive
