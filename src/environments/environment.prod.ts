@@ -3,7 +3,7 @@ export const environment = {
   enableLogs: false, // Logs desactivados en producción
   firebaseConfig: {
     apiKey: "AIzaSyABttUnroWmA39n1buISOUvs-kheE18Qac",
-    authDomain: "salpicarte-ar.firebaseapp.com",
+    authDomain: "salpicarte.com.ar",
     projectId: "salpicarte-ar",
     storageBucket: "salpicarte-ar.appspot.com",
     messagingSenderId: "452145999045",
