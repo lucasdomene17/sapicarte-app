@@ -54,6 +54,29 @@
   box-shadow: 0 0 10px #ff00ff, 0 0 20px rgba(255, 0, 255, 0.7);
 }
 
+/* Animación de latido para destacar el input de personas */
+.turno-personas.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out 3;
+}
+
+@keyframes heartbeat {
+  0% { 
+    transform: scale(1); 
+  }
+  25% { 
+    transform: scale(1.5); 
+  }
+  50% { 
+    transform: scale(1.1); 
+  }
+  75% { 
+    transform: scale(1.5); 
+  }
+  100% { 
+    transform: scale(1); 
+  }
+}
+
 
 /* Fondo general */
 .reservas-section {
