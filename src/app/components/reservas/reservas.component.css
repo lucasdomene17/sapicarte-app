@@ -56,7 +56,7 @@
 
 /* Animación de latido para destacar el input de personas */
 .turno-personas.animate-heartbeat {
-  animation: heartbeat 2s ease-in-out 3;
+  animation: heartbeat 2s ease-in-out 1;
 }
 
 @keyframes heartbeat {
